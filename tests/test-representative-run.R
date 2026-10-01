@@ -75,3 +75,27 @@ summary_text <- readLines(paths[[3L]], warn = FALSE)
 stopifnot(any(grepl("method: gsva", summary_text, fixed = TRUE)))
 stopifnot(any(grepl("canonical source: b39dbff7f04ff47b2235a454209a3fb4812e763c", summary_text, fixed = TRUE)))
 message("GSVA representative adapter run passed")
+
+# Exercise a second canonical method through the same adapter translation.
+alternative_results_root <- file.path(test_root, "results-ssgsea")
+dir.create(alternative_results_root, recursive = TRUE)
+alternative_status <- system2(
+  file.path(R.home("bin"), "Rscript"),
+  c(
+    "--vanilla", shQuote(main_file),
+    "--method", "ssgsea",
+    "--minimum_geneset_size", "5",
+    "--maximum_geneset_size", "100",
+    "--update_genes", "false"
+  ),
+  env = c(
+    paste0("OMIX_DATA_ROOT=", shQuote(data_root)),
+    paste0("OMIX_RESULTS_ROOT=", shQuote(alternative_results_root))
+  )
+)
+stopifnot(identical(alternative_status, 0L))
+alternative_paths <- file.path(alternative_results_root, expected)
+stopifnot(all(file.exists(alternative_paths)))
+alternative_summary <- readLines(alternative_paths[[3L]], warn = FALSE)
+stopifnot(any(grepl("method: ssgsea", alternative_summary, fixed = TRUE)))
+message("GSVA alternative-method adapter run passed")
