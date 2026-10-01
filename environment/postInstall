@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# GSVA, l2psupp, dplyr, stringr, tibble, and optparse are supplied by the
+# imported OMIX Pathways v2 starter environment.
+true

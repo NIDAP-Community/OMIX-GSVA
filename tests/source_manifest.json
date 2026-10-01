@@ -1,0 +1,13 @@
+{
+  "canonical_repository": "https://github.com/NIDAP-Community/OMIX.git",
+  "canonical_commit": "b39dbff7f04ff47b2235a454209a3fb4812e763c",
+  "module_version": "0.1.0",
+  "interface_version": 1,
+  "files": [
+    {
+      "source": "modules/OMIX-GSVA/R/GSVA_v1.R",
+      "destination": "code/functions/GSVA_v1.R",
+      "sha256": "6454cd73cfc0ce6cdfc531606c2e42d7888967af42c4757e46e87a3c237e9f89"
+    }
+  ]
+}
