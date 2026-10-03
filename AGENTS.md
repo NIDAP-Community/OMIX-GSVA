@@ -1,0 +1,64 @@
+# Deployment Adapter Agent Instructions
+
+This repository is a deployment adapter for the canonical OMIX module recorded
+in [OMIX_MODULE_SOURCE.md](OMIX_MODULE_SOURCE.md). Read that file, this
+repository's README, and the canonical [OMIX module contract](https://github.com/NIDAP-Community/OMIX/blob/main/docs/module-contract.md)
+before editing.
+
+## Ownership
+
+- The canonical module owns scientific functions, scientific defaults,
+  portable CLI behavior, schemas, and tests.
+- This repository owns deployment UI, attached-input discovery, result paths,
+  runtime configuration, and the platform entry point.
+- `code/functions/` is a Syncweaver-managed export of the canonical module's
+  `R/` directory. Do not edit it directly. Backport any scientific or reusable-
+  interface change to the canonical module, validate it, and let Syncweaver
+  propose the updated export.
+- Harbor owns the initial repository scaffold, `.codeocean/`, `code/main.R`,
+  `code/run`, input discovery, result paths, platform documentation, and
+  adapter tests. Harbor must not create a second scientific implementation.
+- Until Syncweaver is ready for OMIX, Harbor may update `code/functions/` only
+  by copying the complete canonical `R/` tree byte-for-byte from a merged,
+  tested, immutable source reference; recording per-file SHA-256 values; and
+  obtaining Beacon parity review. No direct scientific edits are allowed.
+
+## Working rules
+
+1. Inspect Git status, the app-panel definition, `.syncweaver-lock.json`,
+   `OMIX_MODULE_SOURCE.md`, and the canonical schema before editing.
+2. Keep UI parameter names and defaults aligned with the canonical contract.
+   Expose every user-settable canonical parameter, including advanced controls.
+   Document any required platform-only translation or intentionally hidden
+   platform-managed input explicitly.
+3. Discover attached data only when exactly one candidate matches; otherwise
+   fail with the candidate paths and require explicit selection.
+4. Preserve stable output names and paired artifacts needed by downstream
+   workflows.
+5. Use the named pinned runtime. Do not rebuild unrelated shared environments
+   or use an unpinned `latest` image.
+6. Do not commit input data, generated results, credentials, package caches,
+   or package-inventory archives.
+7. Validate an adapter change with a representative deployment run. Report
+   separately what was tested locally, in the deployment environment, and not
+   tested.
+8. If `code/functions/` differs from its pinned canonical source, stop and
+   report the drift. Do not choose a winner by timestamp and do not overwrite
+   the difference silently.
+
+## Release discipline
+
+- Keep the README and `OMIX_MODULE_SOURCE.md` current with the canonical
+  module link, canonical module/interface versions, and immutable source
+  reference.
+- Before release, confirm Git is clean, inputs are unambiguous, the app panel
+  matches the intended interface, the environment is pinned, and the workflow
+  handoff works when applicable.
+- Create an adapter release tag only after platform validation. Record the
+  adapter tag, platform release identifier, and runtime tag plus digest in
+  `OMIX_MODULE_SOURCE.md`; mark unavailable values as pending rather than
+  guessing.
+- For automated preparation or finalization, follow the canonical
+  [release automation contract](https://github.com/NIDAP-Community/OMIX/blob/main/docs/release-automation-contract.md).
+  Do not infer a version, create or move a tag, or claim a successful
+  deployment without the requested evidence and approval.

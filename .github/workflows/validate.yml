@@ -1,0 +1,27 @@
+name: Validate GSVA deployment adapter
+
+on:
+  pull_request:
+  push:
+    branches: [master]
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out adapter
+        uses: actions/checkout@v4
+        with:
+          path: adapter
+      - name: Check out pinned canonical OMIX source
+        uses: actions/checkout@v4
+        with:
+          repository: NIDAP-Community/OMIX
+          ref: 4b28d1697a8267848b003ac3b285d8a1e4eebef7
+          path: canonical-omix
+      - name: Verify scientific source parity
+        run: python3 adapter/tests/test-source-parity.py --canonical-root canonical-omix
+      - name: Verify App Panel and CLI contract
+        run: >-
+          python3 adapter/tests/test-app-panel.py
+          --canonical-schema canonical-omix/modules/OMIX-GSVA/schemas/interface.yml

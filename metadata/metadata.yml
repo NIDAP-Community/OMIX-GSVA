@@ -1,0 +1,15 @@
+metadata_version: 1
+name: OMIX GSVA
+description: >-
+  Calculate sample-level pathway enrichment scores from normalized continuous
+  expression using the canonical OMIX GSVA module.
+tags:
+  - OMIX
+  - pathway-analysis
+  - gene-sets
+  - GSVA
+  - bioinformatics
+  - R
+authors:
+  - name: Aleksandra Michalowski
+  - name: Maggie Cam
