@@ -4,11 +4,11 @@
 
 - **Module:** [OMIX GSVA](https://github.com/NIDAP-Community/OMIX/tree/main/modules/OMIX-GSVA)
 - **Canonical path:** `modules/OMIX-GSVA/`
-- **Canonical module version:** `0.1.0`
-- **Canonical interface version:** `1`
+- **Canonical module version:** `0.2.0`
+- **Canonical interface version:** `2`
 - **Canonical release tag:** Pending — baseline tag not yet established.
-- **Canonical source reference:** [`b39dbff7f04ff47b2235a454209a3fb4812e763c`](https://github.com/NIDAP-Community/OMIX/commit/b39dbff7f04ff47b2235a454209a3fb4812e763c)
-- **Interface schema:** [schemas/interface.yml](https://github.com/NIDAP-Community/OMIX/blob/main/modules/OMIX-GSVA/schemas/interface.yml)
+- **Canonical source reference:** [`4b28d1697a8267848b003ac3b285d8a1e4eebef7`](https://github.com/NIDAP-Community/OMIX/commit/4b28d1697a8267848b003ac3b285d8a1e4eebef7)
+- **Interface schema:** [schemas/interface.yml](https://github.com/NIDAP-Community/OMIX/blob/4b28d1697a8267848b003ac3b285d8a1e4eebef7/modules/OMIX-GSVA/schemas/interface.yml)
 - **Module contract:** [OMIX module contract](https://github.com/NIDAP-Community/OMIX/blob/main/docs/module-contract.md)
 
 ## Adapter release record
@@ -30,7 +30,7 @@ Asset version are separate facts. Pending fields must not be inferred.
 
 | Canonical file | Adapter copy | SHA-256 | Purpose |
 | --- | --- | --- | --- |
-| `modules/OMIX-GSVA/R/GSVA_v1.R` | `code/functions/GSVA_v1.R` | `6454cd73cfc0ce6cdfc531606c2e42d7888967af42c4757e46e87a3c237e9f89` | Preserved GSVA implementation. |
+| `modules/OMIX-GSVA/R/GSVA.R` | `code/functions/GSVA.R` | `483feeca3e5a0da01b2f925791dfe0f61dadb26bbed45c3cc3bafd26b9eca41b` | Canonical GSVA implementation. |
 
 The adapter copy is byte-identical to the file at the canonical source
 reference above.
@@ -42,8 +42,8 @@ reference above.
 - **Canonical source directory:** `modules/OMIX-GSVA/R/`
 - **Adapter destination:** `code/functions/`
 - **Last content verification:** Local source-parity test against canonical
-  commit `b39dbff7f04ff47b2235a454209a3fb4812e763c` during adapter bootstrap.
-- **Host-side drift:** None at bootstrap.
+  commit `4b28d1697a8267848b003ac3b285d8a1e4eebef7` during the reviewed adapter refresh.
+- **Host-side drift:** None at the recorded source reference.
 
 Until Syncweaver onboards this mapping, Harbor may refresh it only by copying
 the complete canonical `R/` tree byte-for-byte from a reviewed immutable

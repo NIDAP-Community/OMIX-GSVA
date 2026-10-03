@@ -65,7 +65,7 @@ status <- system2(
 )
 stopifnot(identical(status, 0L))
 
-expected <- c("gsva_v1_results.csv", "gsva_v1_heatmap.png", "gsva_run_summary.txt")
+expected <- c("gsva_results.csv", "gsva_heatmap.png", "gsva_run_summary.txt")
 paths <- file.path(results_root, expected)
 stopifnot(all(file.exists(paths)), all(file.info(paths)$size > 0L))
 results <- utils::read.csv(paths[[1L]], check.names = FALSE)
@@ -73,7 +73,7 @@ stopifnot(identical(results$Geneset, c("TEST_SET_A", "TEST_SET_B")))
 stopifnot(identical(names(results)[-1L], metadata$Sample))
 summary_text <- readLines(paths[[3L]], warn = FALSE)
 stopifnot(any(grepl("method: gsva", summary_text, fixed = TRUE)))
-stopifnot(any(grepl("canonical source: b39dbff7f04ff47b2235a454209a3fb4812e763c", summary_text, fixed = TRUE)))
+stopifnot(any(grepl("canonical source: 4b28d1697a8267848b003ac3b285d8a1e4eebef7", summary_text, fixed = TRUE)))
 message("GSVA representative adapter run passed")
 
 # Exercise a second canonical method through the same adapter translation.

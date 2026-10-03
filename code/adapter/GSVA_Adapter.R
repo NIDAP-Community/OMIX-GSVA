@@ -1,7 +1,7 @@
 # Code Ocean input and parameter translation for OMIX GSVA.
 #
 # This file is deployment glue. Scientific behavior lives only in
-# code/functions/GSVA_v1.R, exported byte-for-byte from canonical OMIX.
+# code/functions/GSVA.R, exported byte-for-byte from canonical OMIX.
 
 gsva_supported_table <- function(path) {
   tolower(tools::file_ext(path)) %in% c("csv", "tsv", "txt")

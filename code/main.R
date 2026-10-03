@@ -13,7 +13,7 @@ script_dir <- if (length(script_argument) == 1L) {
   normalizePath(getwd(), mustWork = TRUE)
 }
 source(file.path(script_dir, "adapter", "GSVA_Adapter.R"))
-source(file.path(script_dir, "functions", "GSVA_v1.R"))
+source(file.path(script_dir, "functions", "GSVA.R"))
 
 option_list <- list(
   make_option("--normalized_data", type = "character", default = "", help = "Normalized expression CSV, TSV, or TXT; blank discovers one candidate under /data"),
@@ -110,8 +110,8 @@ if (!is.finite(opt$image_height) || opt$image_height <= 0) {
 results_dir <- Sys.getenv("OMIX_RESULTS_ROOT", unset = "/results")
 dir.create(results_dir, recursive = TRUE, showWarnings = FALSE)
 results_dir <- normalizePath(results_dir, mustWork = TRUE)
-results_path <- file.path(results_dir, "gsva_v1_results.csv")
-plot_path <- file.path(results_dir, "gsva_v1_heatmap.png")
+results_path <- file.path(results_dir, "gsva_results.csv")
+plot_path <- file.path(results_dir, "gsva_heatmap.png")
 
 message("OMIX GSVA Code Ocean adapter")
 message("Normalized expression: ", resolved$normalized_data)
@@ -157,8 +157,8 @@ summary_lines <- c(
   paste("maximum gene-set size:", opt$maximum_geneset_size),
   paste("gene updating:", gsva_as_logical(opt$update_genes, "update_genes")),
   paste("gene sets scored:", nrow(results)),
-  "canonical module: OMIX-GSVA 0.1.0 (interface 1)",
-  "canonical source: b39dbff7f04ff47b2235a454209a3fb4812e763c",
+  "canonical module: OMIX-GSVA 0.2.0 (interface 2)",
+  "canonical source: 4b28d1697a8267848b003ac3b285d8a1e4eebef7",
   "runtime profile: r-pathway r4.4.3-bioconductor3.20-v2"
 )
 writeLines(summary_lines, file.path(results_dir, "gsva_run_summary.txt"))

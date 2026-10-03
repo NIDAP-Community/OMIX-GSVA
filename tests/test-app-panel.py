@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Compare the Code Ocean App Panel and adapter CLI with canonical interface 1."""
+"""Compare the Code Ocean App Panel and adapter CLI with canonical interface 2."""
 
 from __future__ import annotations
 
@@ -104,8 +104,8 @@ def main() -> None:
 
     results = {item["file_name"] for item in panel["results"]}
     assert results == {
-        "gsva_v1_results.csv",
-        "gsva_v1_heatmap.png",
+        "gsva_results.csv",
+        "gsva_heatmap.png",
         "gsva_run_summary.txt",
     }
     print("GSVA App Panel and CLI contract passed")

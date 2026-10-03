@@ -76,8 +76,8 @@ and gene-symbol updating enabled.
 
 | Output | Purpose | Downstream use |
 | --- | --- | --- |
-| `gsva_v1_results.csv` | Gene-set-by-sample enrichment scores. | Continuous input to OMIX Limma Analysis. |
-| `gsva_v1_heatmap.png` | Row-scaled overview heatmap. | Visual review. |
+| `gsva_results.csv` | Gene-set-by-sample enrichment scores. | Continuous input to OMIX Limma Analysis. |
+| `gsva_heatmap.png` | Row-scaled overview heatmap. | Visual review. |
 | `gsva_run_summary.txt` | Inputs, selections, method, thresholds, and source provenance. | Reproducibility record. |
 
 ## Environment and reproducibility
@@ -104,7 +104,7 @@ version, selected parameters, and released capsule version with every result.
 
 Read [AGENTS.md](AGENTS.md) and
 [OMIX_MODULE_SOURCE.md](OMIX_MODULE_SOURCE.md) before editing.
-`code/functions/GSVA_v1.R` is a byte-identical canonical export and must not
+`code/functions/GSVA.R` is a byte-identical canonical export and must not
 be edited in this repository.
 
 ## References and support

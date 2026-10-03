@@ -229,8 +229,8 @@
     }
   ],
   "results": [
-    {"file_name": "gsva_v1_results.csv"},
-    {"file_name": "gsva_v1_heatmap.png"},
+    {"file_name": "gsva_results.csv"},
+    {"file_name": "gsva_heatmap.png"},
     {"file_name": "gsva_run_summary.txt"}
   ]
 }

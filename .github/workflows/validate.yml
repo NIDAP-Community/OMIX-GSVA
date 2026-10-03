@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: NIDAP-Community/OMIX
-          ref: b39dbff7f04ff47b2235a454209a3fb4812e763c
+          ref: 4b28d1697a8267848b003ac3b285d8a1e4eebef7
           path: canonical-omix
       - name: Verify scientific source parity
         run: python3 adapter/tests/test-source-parity.py --canonical-root canonical-omix
