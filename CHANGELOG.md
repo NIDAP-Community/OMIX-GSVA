@@ -5,6 +5,8 @@ Canonical scientific changes belong in the
 
 ## Unreleased
 
+## 0.1.0 - 2026-10-04
+
 ### Added
 
 - Mixed CSV/TSV input support through independent delimiter detection and
@@ -30,3 +32,14 @@ Canonical scientific changes belong in the
   commit `4b28d1697a8267848b003ac3b285d8a1e4eebef7`.
 - Removed legacy template revision names from the managed R filename and public
   result filenames; outputs are now `gsva_results.csv` and `gsva_heatmap.png`.
+
+### Validated
+
+- Code Ocean release-producing run `1130403` exercised the canonical `gsva`
+  method against mixed CSV/TSV inputs, scored 50 Mouse orthology-mapped
+  Hallmark gene sets across nine samples, and produced all three expected
+  result artifacts.
+- Standard Capsule release `1.0` was created from source capsule `3631910` at
+  `f60059de-0260-4e49-83a0-b367d99fbd0b/tree/v1`.
+- Platform validation of the supported alternative `ssgsea` method remains
+  open in OMIX issue #62 and is not claimed by this release record.
