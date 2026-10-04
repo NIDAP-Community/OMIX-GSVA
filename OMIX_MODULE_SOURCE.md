@@ -21,7 +21,7 @@
 | Code Ocean runtime | `codeocean/omix-r-pathway:r4.4.3-bioconductor3.20-v2`, selected and validated in source capsule `3631910`. |
 | Public runtime identity | `ghcr.io/nidap-community/omix-r-pathway@sha256:25ad9f50df5a4d7f70a7e3debed13f8d5c9b07cbc46d57fdf5c3cf4f2e767ddc` |
 | Runtime lockfile | `starter-environments/r-pathway/renv.lock`, SHA-256 `66b0b93e7b1f05dd9429e542c8fdca89b38770667827b53ffca80400b286795c` |
-| Capsule run | Release-producing run `1130403` in capsule `3631910`, completed successfully on 2026-10-04 from adapter source commit `1508651439504680991eb6ef1ffe38d2cc7d5853`. |
+| Capsule runs | Release-producing `gsva` run `1130403` and post-release `ssgsea` validation run `1139932` in capsule `3631910`, completed successfully on 2026-10-04 from adapter source commit `1508651439504680991eb6ef1ffe38d2cc7d5853`. |
 | Pathway data asset | `OMIX MSigDB v2023.2 compatibility bundle v1`, mounted as `/data/msigdb` in the validation capsule. |
 
 The source commit, adapter tag, platform release, runtime identity, and Data
@@ -49,10 +49,17 @@ gene-symbol updating enabled. The run summary recorded canonical OMIX GSVA
 artifacts were retained in Standard Capsule release
 [`1.0`](https://poc-nci.codeocean.io/capsule/f60059de-0260-4e49-83a0-b367d99fbd0b/tree/v1).
 
-This release establishes platform validation for the default `gsva` method.
-A Code Ocean run of the supported alternative `ssgsea` method was not found in
-the capsule history and is therefore not claimed here. That remaining
-acceptance item continues to be tracked in
+Post-release Code Ocean run `1139932` used the same validated adapter source,
+inputs, collection, species, sample order, gene-set size limits, and runtime
+with the supported alternative `ssgsea` method. It scored the same 50 gene
+sets across the same nine samples and produced a populated finite result
+matrix, readable 50-by-9 heatmap, and complete run summary. Beacon independently
+verified the retained `gsva_results.csv` (9.48 KB), `gsva_heatmap.png`
+(344.54 KB), `gsva_run_summary.txt` (713 B), and execution log (942 B).
+
+Together, runs `1130403` and `1139932` establish platform validation for both
+the default `gsva` method and the supported `ssgsea` alternative. Final adapter
+tagging remains a separate explicit release action tracked in
 [OMIX issue #62](https://github.com/NIDAP-Community/OMIX/issues/62).
 
 ## Exported scientific files
