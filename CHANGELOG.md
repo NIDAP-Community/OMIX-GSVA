@@ -41,5 +41,7 @@ Canonical scientific changes belong in the
   result artifacts.
 - Standard Capsule release `1.0` was created from source capsule `3631910` at
   `f60059de-0260-4e49-83a0-b367d99fbd0b/tree/v1`.
-- Platform validation of the supported alternative `ssgsea` method remains
-  open in OMIX issue #62 and is not claimed by this release record.
+- Post-release Code Ocean run `1139932` exercised the supported alternative
+  `ssgsea` method from the same validated adapter source, scored the same 50
+  gene sets across nine samples, and produced a populated result table,
+  readable heatmap, complete run summary, and successful execution log.
