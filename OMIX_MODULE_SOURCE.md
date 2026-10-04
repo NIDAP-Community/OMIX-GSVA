@@ -16,7 +16,7 @@
 | Field | Recorded value |
 | --- | --- |
 | Adapter version | `0.1.0` |
-| Adapter release tag | `v0.1.0`; pending finalization at validated source commit `1508651439504680991eb6ef1ffe38d2cc7d5853` after the post-release evidence review. |
+| Adapter release tag | [`v0.1.0`](https://github.com/NIDAP-Community/OMIX-GSVA/tree/v0.1.0), annotated tag object `b5bb8213f577fdaa1bb6b2053b936e2c90167405`, resolving to validated source commit `1508651439504680991eb6ef1ffe38d2cc7d5853`. |
 | Platform release | Code Ocean Standard Capsule release `1.0`: [`f60059de-0260-4e49-83a0-b367d99fbd0b/tree/v1`](https://poc-nci.codeocean.io/capsule/f60059de-0260-4e49-83a0-b367d99fbd0b/tree/v1), created 2026-10-04 from source capsule `3631910`. |
 | Code Ocean runtime | `codeocean/omix-r-pathway:r4.4.3-bioconductor3.20-v2`, selected and validated in source capsule `3631910`. |
 | Public runtime identity | `ghcr.io/nidap-community/omix-r-pathway@sha256:25ad9f50df5a4d7f70a7e3debed13f8d5c9b07cbc46d57fdf5c3cf4f2e767ddc` |
