@@ -4,11 +4,11 @@
 
 - **Module:** [OMIX GSVA](https://github.com/NIDAP-Community/OMIX/tree/main/modules/OMIX-GSVA)
 - **Canonical path:** `modules/OMIX-GSVA/`
-- **Canonical module version:** `0.2.0`
+- **Canonical module version:** `0.3.0`
 - **Canonical interface version:** `2`
 - **Canonical release tag:** Pending — baseline tag not yet established.
-- **Canonical source reference:** [`4b28d1697a8267848b003ac3b285d8a1e4eebef7`](https://github.com/NIDAP-Community/OMIX/commit/4b28d1697a8267848b003ac3b285d8a1e4eebef7)
-- **Interface schema:** [schemas/interface.yml](https://github.com/NIDAP-Community/OMIX/blob/4b28d1697a8267848b003ac3b285d8a1e4eebef7/modules/OMIX-GSVA/schemas/interface.yml)
+- **Canonical source reference:** [`5396be0203b94fc1e22cb2eaf74d8265a32466a7`](https://github.com/NIDAP-Community/OMIX/commit/5396be0203b94fc1e22cb2eaf74d8265a32466a7)
+- **Interface schema:** [schemas/interface.yml](https://github.com/NIDAP-Community/OMIX/blob/5396be0203b94fc1e22cb2eaf74d8265a32466a7/modules/OMIX-GSVA/schemas/interface.yml)
 - **Module contract:** [OMIX module contract](https://github.com/NIDAP-Community/OMIX/blob/main/docs/module-contract.md)
 
 ## Adapter release record
@@ -21,7 +21,7 @@
 | Code Ocean runtime | `codeocean/omix-r-pathway:r4.4.3-bioconductor3.20-v2`; imported environment identity must be confirmed in the capsule. |
 | Public runtime identity | `ghcr.io/nidap-community/omix-r-pathway@sha256:25ad9f50df5a4d7f70a7e3debed13f8d5c9b07cbc46d57fdf5c3cf4f2e767ddc` |
 | Runtime lockfile | `starter-environments/r-pathway/renv.lock`, SHA-256 `66b0b93e7b1f05dd9429e542c8fdca89b38770667827b53ffca80400b286795c` |
-| Pathway data asset | Pending — an authorized, versioned long-table Data Asset is required. |
+| Pathway data asset | `OMIX MSigDB v2023.2 compatibility bundle v1`, mounted as `/data/msigdb` in the validation capsule. |
 
 The source commit, adapter tag, platform release, runtime identity, and Data
 Asset version are separate facts. Pending fields must not be inferred.
@@ -30,7 +30,7 @@ Asset version are separate facts. Pending fields must not be inferred.
 
 | Canonical file | Adapter copy | SHA-256 | Purpose |
 | --- | --- | --- | --- |
-| `modules/OMIX-GSVA/R/GSVA.R` | `code/functions/GSVA.R` | `483feeca3e5a0da01b2f925791dfe0f61dadb26bbed45c3cc3bafd26b9eca41b` | Canonical GSVA implementation. |
+| `modules/OMIX-GSVA/R/GSVA.R` | `code/functions/GSVA.R` | `2ef7ab5d3726a89676ffb6e5e6b1bc42b41c4ef59093d3754252c8035b0fa7ad` | Canonical GSVA implementation. |
 
 The adapter copy is byte-identical to the file at the canonical source
 reference above.
@@ -42,7 +42,7 @@ reference above.
 - **Canonical source directory:** `modules/OMIX-GSVA/R/`
 - **Adapter destination:** `code/functions/`
 - **Last content verification:** Local source-parity test against canonical
-  commit `4b28d1697a8267848b003ac3b285d8a1e4eebef7` during the reviewed adapter refresh.
+  commit `5396be0203b94fc1e22cb2eaf74d8265a32466a7` during the reviewed adapter refresh.
 - **Host-side drift:** None at the recorded source reference.
 
 Until Syncweaver onboards this mapping, Harbor may refresh it only by copying
@@ -57,7 +57,9 @@ allowed.
 - The three canonical input paths are optional file selectors in the App
   Panel. A blank selector triggers content-based discovery under `/data` and
   must resolve to exactly one candidate.
-- A displayed `\\t` delimiter is translated to the canonical tab character.
+- Delimiters are detected independently for each input unless the user supplies
+  a shared or input-specific override. A displayed `\\t` value is translated
+  to the canonical tab character.
 - Boolean App Panel strings are translated to R logical values.
 - The adapter reproduces the canonical stable filenames and run summary but
   does not alter scientific defaults.

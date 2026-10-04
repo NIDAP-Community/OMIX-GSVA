@@ -82,7 +82,8 @@
 			"param_name": "samples_to_include",
 			"description": "Optional comma-separated sample IDs. Leave blank to use matching metadata samples in metadata order.",
 			"type": "text",
-			"value_type": "string"
+			"value_type": "string",
+			"default_value": ""
 		},
 		{
 			"id": "species",
@@ -229,16 +230,47 @@
 		{
 			"id": "input_delim",
 			"category": "advanced",
-			"name": "Input Delimiter",
+			"name": "Shared Delimiter Fallback",
 			"param_name": "input_delim",
-			"description": "Delimiter shared by all three inputs. Use \\t for TSV/TXT or comma for CSV.",
+			"description": "Auto detects each input independently. Select a delimiter only to force one shared fallback.",
 			"type": "list",
 			"value_type": "string",
-			"default_value": "\\t",
+			"default_value": "auto",
 			"extra_data": [
+				"auto",
 				"\\t",
 				","
 			]
+		},
+		{
+			"id": "normalized_data_delim",
+			"category": "advanced",
+			"name": "Expression Delimiter Override",
+			"param_name": "normalized_data_delim",
+			"description": "Optional delimiter for normalized expression. Leave blank for auto detection.",
+			"type": "text",
+			"value_type": "string",
+			"default_value": ""
+		},
+		{
+			"id": "sample_metadata_delim",
+			"category": "advanced",
+			"name": "Metadata Delimiter Override",
+			"param_name": "sample_metadata_delim",
+			"description": "Optional delimiter for sample metadata. Leave blank for auto detection.",
+			"type": "text",
+			"value_type": "string",
+			"default_value": ""
+		},
+		{
+			"id": "pathways_database_delim",
+			"category": "advanced",
+			"name": "Pathway Delimiter Override",
+			"param_name": "pathways_database_delim",
+			"description": "Optional delimiter for the pathway database. Leave blank for auto detection.",
+			"type": "text",
+			"value_type": "string",
+			"default_value": ""
 		},
 		{
 			"id": "image_width",

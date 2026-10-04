@@ -32,7 +32,10 @@ option_list <- list(
   make_option("--maximum_geneset_size", type = "integer", default = 1200L),
   make_option("--update_genes", type = "character", default = "true", help = "true or false"),
   make_option("--display_warnings", type = "integer", default = -1L),
-  make_option("--input_delim", type = "character", default = "\\t", help = "Shared delimiter: \\t, comma, or one literal character"),
+  make_option("--input_delim", type = "character", default = "auto", help = "Shared fallback delimiter or auto detection"),
+  make_option("--normalized_data_delim", type = "character", default = "", help = "Optional normalized-expression delimiter override"),
+  make_option("--sample_metadata_delim", type = "character", default = "", help = "Optional sample-metadata delimiter override"),
+  make_option("--pathways_database_delim", type = "character", default = "", help = "Optional pathway-database delimiter override"),
   make_option("--image_width", type = "double", default = 12),
   make_option("--image_height", type = "double", default = 10)
 )
@@ -53,18 +56,21 @@ resolved <- resolve_gsva_inputs(
   gene_column = opt$gene_column,
   sample_name_column = opt$sample_name_column,
   input_delim = opt$input_delim,
+  normalized_data_delim = opt$normalized_data_delim,
+  sample_metadata_delim = opt$sample_metadata_delim,
+  pathways_database_delim = opt$pathways_database_delim,
   data_root = Sys.getenv("OMIX_DATA_ROOT", unset = "/data")
 )
 
 normalized_preview <- utils::read.delim(
   resolved$normalized_data,
-  sep = resolved$input_delim,
+  sep = resolved$normalized_data_delim,
   check.names = FALSE,
   stringsAsFactors = FALSE
 )
 metadata_preview <- utils::read.delim(
   resolved$sample_metadata,
-  sep = resolved$input_delim,
+  sep = resolved$sample_metadata_delim,
   check.names = FALSE,
   stringsAsFactors = FALSE
 )
@@ -137,6 +143,9 @@ results <- run_gsva(
   update_genes = gsva_as_logical(opt$update_genes, "update_genes"),
   display_warnings = opt$display_warnings,
   input_delim = resolved$input_delim,
+  normalized_data_delim = resolved$normalized_data_delim,
+  sample_metadata_delim = resolved$sample_metadata_delim,
+  pathways_database_delim = resolved$pathways_database_delim,
   export_results_file = results_path,
   export_plot_file = plot_path,
   export_plot_width = opt$image_width,
@@ -148,6 +157,9 @@ summary_lines <- c(
   paste("normalized data:", resolved$normalized_data),
   paste("sample metadata:", resolved$sample_metadata),
   paste("pathways database:", resolved$pathways_database),
+  paste("normalized data delimiter:", if (identical(resolved$normalized_data_delim, "\t")) "\\t (tab)" else resolved$normalized_data_delim),
+  paste("sample metadata delimiter:", if (identical(resolved$sample_metadata_delim, "\t")) "\\t (tab)" else resolved$sample_metadata_delim),
+  paste("pathways database delimiter:", if (identical(resolved$pathways_database_delim, "\t")) "\\t (tab)" else resolved$pathways_database_delim),
   paste("samples:", paste(samples_to_include, collapse = ", ")),
   paste("collections:", paste(collections_to_include, collapse = ", ")),
   paste("expression species:", opt$species),
@@ -157,8 +169,8 @@ summary_lines <- c(
   paste("maximum gene-set size:", opt$maximum_geneset_size),
   paste("gene updating:", gsva_as_logical(opt$update_genes, "update_genes")),
   paste("gene sets scored:", nrow(results)),
-  "canonical module: OMIX-GSVA 0.2.0 (interface 2)",
-  "canonical source: 4b28d1697a8267848b003ac3b285d8a1e4eebef7",
+  "canonical module: OMIX-GSVA 0.3.0 (interface 2)",
+  "canonical source: 5396be0203b94fc1e22cb2eaf74d8265a32466a7",
   "runtime profile: r-pathway r4.4.3-bioconductor3.20-v2"
 )
 writeLines(summary_lines, file.path(results_dir, "gsva_run_summary.txt"))
