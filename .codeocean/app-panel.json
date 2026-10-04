@@ -1,236 +1,277 @@
 {
-  "version": 1,
-  "named_parameters": true,
-  "general": {
-    "title": "OMIX GSVA",
-    "instructions": "Calculate sample-level pathway enrichment scores from normalized continuous expression. Provide three inputs: normalized expression, matching sample metadata, and an approved long-format pathway database. Leave a file selector blank only when the attached assets contain exactly one unambiguous candidate for that role. Raw counts are not supported."
-  },
-  "datasets": [],
-  "categories": [
-    {
-      "id": "inputs",
-      "name": "Inputs",
-      "description": "Required expression, metadata, and pathway membership tables"
-    },
-    {
-      "id": "selection",
-      "name": "Samples and Pathways",
-      "description": "Identifiers, species, samples, and pathway collections"
-    },
-    {
-      "id": "method",
-      "name": "GSVA Method",
-      "description": "Scoring method and gene-set size controls"
-    },
-    {
-      "id": "advanced",
-      "name": "Advanced",
-      "description": "Gene updating, warnings, delimiter, and output dimensions"
-    }
-  ],
-  "parameters": [
-    {
-      "id": "normalized_data",
-      "category": "inputs",
-      "name": "Normalized Expression File",
-      "param_name": "normalized_data",
-      "description": "Normalized continuous gene-by-sample CSV, TSV, or TXT. Leave blank to discover exactly one compatible table under /data.",
-      "type": "file",
-      "value_type": "string"
-    },
-    {
-      "id": "sample_metadata",
-      "category": "inputs",
-      "name": "Sample Metadata File",
-      "param_name": "sample_metadata",
-      "description": "Matching sample metadata CSV, TSV, or TXT. Leave blank to discover exactly one compatible table under /data.",
-      "type": "file",
-      "value_type": "string"
-    },
-    {
-      "id": "pathways_database",
-      "category": "inputs",
-      "name": "Pathway Database File",
-      "param_name": "pathways_database",
-      "description": "Approved long membership table containing collection, gene_set_name, gene_symbol, and species. Leave blank to discover one compatible attached asset.",
-      "type": "file",
-      "value_type": "string"
-    },
-    {
-      "id": "gene_column",
-      "category": "selection",
-      "name": "Gene Column",
-      "param_name": "gene_column",
-      "description": "Gene identifier column in normalized expression.",
-      "type": "text",
-      "value_type": "string",
-      "default_value": "Gene"
-    },
-    {
-      "id": "sample_name_column",
-      "category": "selection",
-      "name": "Sample ID Column",
-      "param_name": "sample_name_column",
-      "description": "Sample identifier column in sample metadata.",
-      "type": "text",
-      "value_type": "string",
-      "default_value": "Sample"
-    },
-    {
-      "id": "samples_to_include",
-      "category": "selection",
-      "name": "Samples to Include",
-      "param_name": "samples_to_include",
-      "description": "Optional comma-separated sample IDs. Leave blank to use matching metadata samples in metadata order.",
-      "type": "text",
-      "value_type": "string",
-      "default_value": ""
-    },
-    {
-      "id": "species",
-      "category": "selection",
-      "name": "Expression Species",
-      "param_name": "species",
-      "description": "Species of gene identifiers in normalized expression.",
-      "type": "list",
-      "value_type": "string",
-      "default_value": "Human",
-      "extra_data": ["Human", "Mouse", "Rat", "Dog", "Rabbit", "Zebrafish", "Drosophila", "Chimpanzee", "Macaque"]
-    },
-    {
-      "id": "database_species",
-      "category": "selection",
-      "name": "Database Species",
-      "param_name": "database_species",
-      "description": "Species to select from a standard pathway database.",
-      "type": "list",
-      "value_type": "string",
-      "default_value": "Human",
-      "extra_data": ["Human", "Mouse"]
-    },
-    {
-      "id": "collections_to_include",
-      "category": "selection",
-      "name": "Collections to Include",
-      "param_name": "collections_to_include",
-      "description": "Comma-separated exact collection names from the pathway database.",
-      "type": "text",
-      "value_type": "string",
-      "default_value": "H: hallmark gene sets"
-    },
-    {
-      "id": "custom_pathways_database",
-      "category": "selection",
-      "name": "Custom Pathway Database",
-      "param_name": "custom_pathways_database",
-      "description": "Use Custom Species instead of Database Species when selecting pathway rows.",
-      "type": "list",
-      "value_type": "string",
-      "default_value": "false",
-      "extra_data": ["false", "true"]
-    },
-    {
-      "id": "custom_species",
-      "category": "selection",
-      "name": "Custom Species",
-      "param_name": "custom_species",
-      "description": "Species to select when Custom Pathway Database is true.",
-      "type": "list",
-      "value_type": "string",
-      "default_value": "Mouse",
-      "extra_data": ["Human", "Mouse", "Rat", "Dog", "Rabbit", "Zebrafish", "Drosophila", "Chimpanzee", "Macaque"]
-    },
-    {
-      "id": "method",
-      "category": "method",
-      "name": "Method",
-      "param_name": "method",
-      "description": "Sample-level gene-set scoring method.",
-      "type": "list",
-      "value_type": "string",
-      "default_value": "gsva",
-      "extra_data": ["gsva", "ssgsea", "zscore", "plage"]
-    },
-    {
-      "id": "minimum_geneset_size",
-      "category": "method",
-      "name": "Minimum Gene-set Size",
-      "param_name": "minimum_geneset_size",
-      "description": "Minimum number of overlapping genes required for a gene set.",
-      "type": "text",
-      "value_type": "number",
-      "default_value": "15",
-      "minimum": 1
-    },
-    {
-      "id": "maximum_geneset_size",
-      "category": "method",
-      "name": "Maximum Gene-set Size",
-      "param_name": "maximum_geneset_size",
-      "description": "Maximum number of overlapping genes allowed for a gene set.",
-      "type": "text",
-      "value_type": "number",
-      "default_value": "1200",
-      "minimum": 1
-    },
-    {
-      "id": "update_genes",
-      "category": "advanced",
-      "name": "Update Gene Symbols",
-      "param_name": "update_genes",
-      "description": "Update expression and gene-set symbols with l2psupp before scoring.",
-      "type": "list",
-      "value_type": "string",
-      "default_value": "true",
-      "extra_data": ["true", "false"]
-    },
-    {
-      "id": "display_warnings",
-      "category": "advanced",
-      "name": "Warning Level",
-      "param_name": "display_warnings",
-      "description": "R warning option; -1 suppresses warnings and 0 displays them.",
-      "type": "text",
-      "value_type": "number",
-      "default_value": "-1"
-    },
-    {
-      "id": "input_delim",
-      "category": "advanced",
-      "name": "Input Delimiter",
-      "param_name": "input_delim",
-      "description": "Delimiter shared by all three inputs. Use \\t for TSV/TXT or comma for CSV.",
-      "type": "list",
-      "value_type": "string",
-      "default_value": "\\t",
-      "extra_data": ["\\t", ","]
-    },
-    {
-      "id": "image_width",
-      "category": "advanced",
-      "name": "Heatmap Width (inches)",
-      "param_name": "image_width",
-      "description": "Output PNG width in inches.",
-      "type": "text",
-      "value_type": "number",
-      "default_value": "12",
-      "minimum": 1
-    },
-    {
-      "id": "image_height",
-      "category": "advanced",
-      "name": "Heatmap Height (inches)",
-      "param_name": "image_height",
-      "description": "Output PNG height in inches.",
-      "type": "text",
-      "value_type": "number",
-      "default_value": "10",
-      "minimum": 1
-    }
-  ],
-  "results": [
-    {"file_name": "gsva_results.csv"},
-    {"file_name": "gsva_heatmap.png"},
-    {"file_name": "gsva_run_summary.txt"}
-  ]
+	"version": 1,
+	"named_parameters": true,
+	"general": {
+		"title": "OMIX GSVA",
+		"instructions": "Calculate sample-level pathway enrichment scores from normalized continuous expression. Provide three inputs: normalized expression, matching sample metadata, and an approved long-format pathway database. Leave a file selector blank only when the attached assets contain exactly one unambiguous candidate for that role. Raw counts are not supported."
+	},
+	"categories": [
+		{
+			"id": "inputs",
+			"name": "Inputs",
+			"description": "Required expression, metadata, and pathway membership tables"
+		},
+		{
+			"id": "selection",
+			"name": "Samples and Pathways",
+			"description": "Identifiers, species, samples, and pathway collections"
+		},
+		{
+			"id": "method",
+			"name": "GSVA Method",
+			"description": "Scoring method and gene-set size controls"
+		},
+		{
+			"id": "advanced",
+			"name": "Advanced",
+			"description": "Gene updating, warnings, delimiter, and output dimensions"
+		}
+	],
+	"parameters": [
+		{
+			"id": "normalized_data",
+			"category": "inputs",
+			"name": "Normalized Expression File",
+			"param_name": "normalized_data",
+			"description": "Normalized continuous gene-by-sample CSV, TSV, or TXT. Leave blank to discover exactly one compatible table under /data.",
+			"type": "file",
+			"value_type": "string"
+		},
+		{
+			"id": "sample_metadata",
+			"category": "inputs",
+			"name": "Sample Metadata File",
+			"param_name": "sample_metadata",
+			"description": "Matching sample metadata CSV, TSV, or TXT. Leave blank to discover exactly one compatible table under /data.",
+			"type": "file",
+			"value_type": "string"
+		},
+		{
+			"id": "pathways_database",
+			"category": "inputs",
+			"name": "Pathway Database File",
+			"param_name": "pathways_database",
+			"description": "Approved long membership table containing collection, gene_set_name, gene_symbol, and species. Leave blank to discover one compatible attached asset.",
+			"type": "file",
+			"value_type": "string"
+		},
+		{
+			"id": "gene_column",
+			"category": "selection",
+			"name": "Gene Column",
+			"param_name": "gene_column",
+			"description": "Gene identifier column in normalized expression.",
+			"type": "text",
+			"value_type": "string",
+			"default_value": "Gene"
+		},
+		{
+			"id": "sample_name_column",
+			"category": "selection",
+			"name": "Sample ID Column",
+			"param_name": "sample_name_column",
+			"description": "Sample identifier column in sample metadata.",
+			"type": "text",
+			"value_type": "string",
+			"default_value": "Sample"
+		},
+		{
+			"id": "samples_to_include",
+			"category": "selection",
+			"name": "Samples to Include",
+			"param_name": "samples_to_include",
+			"description": "Optional comma-separated sample IDs. Leave blank to use matching metadata samples in metadata order.",
+			"type": "text",
+			"value_type": "string"
+		},
+		{
+			"id": "species",
+			"category": "selection",
+			"name": "Expression Species",
+			"param_name": "species",
+			"description": "Species of gene identifiers in normalized expression.",
+			"type": "list",
+			"value_type": "string",
+			"default_value": "Human",
+			"extra_data": [
+				"Human",
+				"Mouse",
+				"Rat",
+				"Dog",
+				"Rabbit",
+				"Zebrafish",
+				"Drosophila",
+				"Chimpanzee",
+				"Macaque"
+			]
+		},
+		{
+			"id": "database_species",
+			"category": "selection",
+			"name": "Database Species",
+			"param_name": "database_species",
+			"description": "Species to select from a standard pathway database.",
+			"type": "list",
+			"value_type": "string",
+			"default_value": "Human",
+			"extra_data": [
+				"Human",
+				"Mouse"
+			]
+		},
+		{
+			"id": "collections_to_include",
+			"category": "selection",
+			"name": "Collections to Include",
+			"param_name": "collections_to_include",
+			"description": "Comma-separated exact collection names from the pathway database.",
+			"type": "text",
+			"value_type": "string",
+			"default_value": "H: hallmark gene sets"
+		},
+		{
+			"id": "custom_pathways_database",
+			"category": "selection",
+			"name": "Custom Pathway Database",
+			"param_name": "custom_pathways_database",
+			"description": "Use Custom Species instead of Database Species when selecting pathway rows.",
+			"type": "list",
+			"value_type": "string",
+			"default_value": "false",
+			"extra_data": [
+				"false",
+				"true"
+			]
+		},
+		{
+			"id": "custom_species",
+			"category": "selection",
+			"name": "Custom Species",
+			"param_name": "custom_species",
+			"description": "Species to select when Custom Pathway Database is true.",
+			"type": "list",
+			"value_type": "string",
+			"default_value": "Mouse",
+			"extra_data": [
+				"Human",
+				"Mouse",
+				"Rat",
+				"Dog",
+				"Rabbit",
+				"Zebrafish",
+				"Drosophila",
+				"Chimpanzee",
+				"Macaque"
+			]
+		},
+		{
+			"id": "method",
+			"category": "method",
+			"name": "Method",
+			"param_name": "method",
+			"description": "Sample-level gene-set scoring method.",
+			"type": "list",
+			"value_type": "string",
+			"default_value": "gsva",
+			"extra_data": [
+				"gsva",
+				"ssgsea",
+				"zscore",
+				"plage"
+			]
+		},
+		{
+			"id": "minimum_geneset_size",
+			"category": "method",
+			"name": "Minimum Gene-set Size",
+			"param_name": "minimum_geneset_size",
+			"description": "Minimum number of overlapping genes required for a gene set.",
+			"type": "text",
+			"value_type": "number",
+			"default_value": "15",
+			"minimum": 1
+		},
+		{
+			"id": "maximum_geneset_size",
+			"category": "method",
+			"name": "Maximum Gene-set Size",
+			"param_name": "maximum_geneset_size",
+			"description": "Maximum number of overlapping genes allowed for a gene set.",
+			"type": "text",
+			"value_type": "number",
+			"default_value": "1200",
+			"minimum": 1
+		},
+		{
+			"id": "update_genes",
+			"category": "advanced",
+			"name": "Update Gene Symbols",
+			"param_name": "update_genes",
+			"description": "Update expression and gene-set symbols with l2psupp before scoring.",
+			"type": "list",
+			"value_type": "string",
+			"default_value": "true",
+			"extra_data": [
+				"true",
+				"false"
+			]
+		},
+		{
+			"id": "display_warnings",
+			"category": "advanced",
+			"name": "Warning Level",
+			"param_name": "display_warnings",
+			"description": "R warning option; -1 suppresses warnings and 0 displays them.",
+			"type": "text",
+			"value_type": "number",
+			"default_value": "-1"
+		},
+		{
+			"id": "input_delim",
+			"category": "advanced",
+			"name": "Input Delimiter",
+			"param_name": "input_delim",
+			"description": "Delimiter shared by all three inputs. Use \\t for TSV/TXT or comma for CSV.",
+			"type": "list",
+			"value_type": "string",
+			"default_value": "\\t",
+			"extra_data": [
+				"\\t",
+				","
+			]
+		},
+		{
+			"id": "image_width",
+			"category": "advanced",
+			"name": "Heatmap Width (inches)",
+			"param_name": "image_width",
+			"description": "Output PNG width in inches.",
+			"type": "text",
+			"value_type": "number",
+			"default_value": "12",
+			"minimum": 1
+		},
+		{
+			"id": "image_height",
+			"category": "advanced",
+			"name": "Heatmap Height (inches)",
+			"param_name": "image_height",
+			"description": "Output PNG height in inches.",
+			"type": "text",
+			"value_type": "number",
+			"default_value": "10",
+			"minimum": 1
+		}
+	],
+	"results": [
+		{
+			"file_name": "gsva_results.csv"
+		},
+		{
+			"file_name": "gsva_heatmap.png"
+		},
+		{
+			"file_name": "gsva_run_summary.txt"
+		}
+	]
 }
