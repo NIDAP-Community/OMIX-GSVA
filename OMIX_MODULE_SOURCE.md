@@ -6,7 +6,7 @@
 - **Canonical path:** `modules/OMIX-GSVA/`
 - **Canonical module version:** `0.3.0`
 - **Canonical interface version:** `2`
-- **Canonical release tag:** Pending — baseline tag not yet established.
+- **Canonical release tag:** [`module/omix-gsva/v0.3.0`](https://github.com/NIDAP-Community/OMIX/releases/tag/module%2Fomix-gsva%2Fv0.3.0), resolving to canonical source commit `5396be0203b94fc1e22cb2eaf74d8265a32466a7`.
 - **Canonical source reference:** [`5396be0203b94fc1e22cb2eaf74d8265a32466a7`](https://github.com/NIDAP-Community/OMIX/commit/5396be0203b94fc1e22cb2eaf74d8265a32466a7)
 - **Interface schema:** [schemas/interface.yml](https://github.com/NIDAP-Community/OMIX/blob/5396be0203b94fc1e22cb2eaf74d8265a32466a7/modules/OMIX-GSVA/schemas/interface.yml)
 - **Module contract:** [OMIX module contract](https://github.com/NIDAP-Community/OMIX/blob/main/docs/module-contract.md)
