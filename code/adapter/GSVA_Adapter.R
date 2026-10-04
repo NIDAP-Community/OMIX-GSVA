@@ -8,13 +8,17 @@ gsva_supported_table <- function(path) {
 }
 
 gsva_normalize_delimiter <- function(value) {
-  if (is.null(value) || length(value) == 0L) return("\t")
+  if (is.null(value) || length(value) == 0L) return(NULL)
   value <- as.character(value[[1L]])
+  if (!nzchar(trimws(value)) || identical(tolower(trimws(value)), "auto")) {
+    return(NULL)
+  }
+  if (identical(value, "\t")) return("\t")
   if (value %in% c("\\t", "tab", "TAB")) return("\t")
   if (value %in% c(",", "comma", "COMMA")) return(",")
   if (value %in% c(";", "semicolon", "SEMICOLON")) return(";")
   if (nchar(value) != 1L) {
-    stop("ERROR: input_delim must be one character, \\t, tab, comma, or semicolon.")
+    stop("ERROR: delimiters must be auto, one character, \\t, tab, comma, or semicolon.")
   }
   value
 }
@@ -137,12 +141,26 @@ resolve_gsva_inputs <- function(
   pathways_database = NULL,
   gene_column = "Gene",
   sample_name_column = "Sample",
-  input_delim = "\t",
+  input_delim = "auto",
+  normalized_data_delim = NULL,
+  sample_metadata_delim = NULL,
+  pathways_database_delim = NULL,
   data_root = "/data"
 ) {
-  delim <- gsva_normalize_delimiter(input_delim)
   files <- gsva_data_files(data_root)
-  headers <- lapply(files, gsva_read_header, delim = delim)
+  headers <- lapply(files, function(path) {
+    tryCatch(
+      {
+        delim <- resolve_gsva_delim(
+          path,
+          paste0("candidate input '", path, "'"),
+          shared_delim = input_delim
+        )
+        gsva_read_header(path, delim)
+      },
+      error = function(error) character()
+    )
+  })
   pathway_columns <- c("collection", "gene_set_name", "gene_symbol", "species")
   is_pathway <- function(header) all(pathway_columns %in% header)
 
@@ -184,10 +202,32 @@ resolve_gsva_inputs <- function(
     stop("ERROR: Expression, metadata, and pathway database must be distinct files.")
   }
 
+  normalized_delim <- resolve_gsva_delim(
+    normalized_path,
+    "normalized expression table",
+    normalized_data_delim,
+    input_delim
+  )
+  metadata_delim <- resolve_gsva_delim(
+    metadata_path,
+    "sample metadata table",
+    sample_metadata_delim,
+    input_delim
+  )
+  pathways_delim <- resolve_gsva_delim(
+    pathways_path,
+    "pathway database table",
+    pathways_database_delim,
+    input_delim
+  )
+
   list(
     normalized_data = normalized_path,
     sample_metadata = metadata_path,
     pathways_database = pathways_path,
-    input_delim = delim
+    input_delim = input_delim,
+    normalized_data_delim = normalized_delim,
+    sample_metadata_delim = metadata_delim,
+    pathways_database_delim = pathways_delim
   )
 }

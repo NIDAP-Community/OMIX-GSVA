@@ -7,6 +7,9 @@ Canonical scientific changes belong in the
 
 ### Added
 
+- Mixed CSV/TSV input support through independent delimiter detection and
+  optional per-input App Panel overrides from canonical OMIX GSVA `0.3.0`.
+
 - Initial Code Ocean deployment adapter for canonical OMIX GSVA `0.2.0`,
   interface version `2`.
 - Byte-identical canonical scientific export under `code/functions/`.
@@ -19,6 +22,9 @@ Canonical scientific changes belong in the
   provenance.
 
 ### Changed
+
+- Refreshed the complete managed scientific export from merged canonical OMIX
+  commit `5396be0203b94fc1e22cb2eaf74d8265a32466a7`.
 
 - Refreshed the complete managed scientific export from merged canonical OMIX
   commit `4b28d1697a8267848b003ac3b285d8a1e4eebef7`.

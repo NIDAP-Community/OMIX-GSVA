@@ -28,7 +28,8 @@ repository owns only the Code Ocean App Panel, mounted-input discovery,
 
 ## Inputs
 
-All three inputs must use the same delimiter and may be CSV, TSV, or TXT.
+Inputs may independently use CSV, TSV, or TXT delimiters. The adapter detects
+each file separately and provides advanced shared and per-input overrides.
 Supply files explicitly in the App Panel or attach assets containing exactly
 one unambiguous candidate for each role.
 
@@ -93,7 +94,8 @@ version, selected parameters, and released capsule version with every result.
 ## Troubleshooting and limitations
 
 - Raw counts are not supported. Normalize expression before GSVA.
-- All three current canonical inputs share one delimiter setting.
+- Ambiguous TXT delimiters require the corresponding advanced delimiter
+  override.
 - Collection names are exact and case-sensitive.
 - Duplicate gene-set display names across selected collections are unsupported
   by the preserved implementation and should be resolved in the input asset.

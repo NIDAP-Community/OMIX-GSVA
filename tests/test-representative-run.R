@@ -46,8 +46,8 @@ pathways <- rbind(
   )
 )
 
-utils::write.table(expression, file.path(data_root, "workflow", "normalized.tsv"), sep = "\t", row.names = FALSE, quote = FALSE)
-utils::write.table(metadata, file.path(data_root, "workflow", "metadata.tsv"), sep = "\t", row.names = FALSE, quote = FALSE)
+utils::write.csv(expression, file.path(data_root, "workflow", "normalized.csv"), row.names = FALSE, quote = FALSE)
+utils::write.csv(metadata, file.path(data_root, "workflow", "metadata.csv"), row.names = FALSE, quote = FALSE)
 utils::write.table(pathways, file.path(data_root, "catalog", "pathways.tsv"), sep = "\t", row.names = FALSE, quote = FALSE)
 
 status <- system2(
@@ -73,7 +73,10 @@ stopifnot(identical(results$Geneset, c("TEST_SET_A", "TEST_SET_B")))
 stopifnot(identical(names(results)[-1L], metadata$Sample))
 summary_text <- readLines(paths[[3L]], warn = FALSE)
 stopifnot(any(grepl("method: gsva", summary_text, fixed = TRUE)))
-stopifnot(any(grepl("canonical source: 4b28d1697a8267848b003ac3b285d8a1e4eebef7", summary_text, fixed = TRUE)))
+stopifnot(any(grepl("normalized data delimiter: ,", summary_text, fixed = TRUE)))
+stopifnot(any(grepl("sample metadata delimiter: ,", summary_text, fixed = TRUE)))
+stopifnot(any(grepl("pathways database delimiter: \\t (tab)", summary_text, fixed = TRUE)))
+stopifnot(any(grepl("canonical source: 5396be0203b94fc1e22cb2eaf74d8265a32466a7", summary_text, fixed = TRUE)))
 message("GSVA representative adapter run passed")
 
 # Exercise a second canonical method through the same adapter translation.
