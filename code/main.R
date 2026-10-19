@@ -18,7 +18,7 @@ source(file.path(script_dir, "functions", "GSVA.R"))
 option_list <- list(
   make_option("--normalized_data", type = "character", default = "", help = "Normalized expression CSV, TSV, or TXT; blank discovers one candidate under /data"),
   make_option("--sample_metadata", type = "character", default = "", help = "Sample metadata CSV, TSV, or TXT; blank discovers one candidate under /data"),
-  make_option("--pathways_database", type = "character", default = "", help = "Long pathway membership CSV, TSV, or TXT; blank discovers one candidate under /data"),
+  make_option("--pathways_database", type = "character", default = "/data/msigdb/msigdb_v2023_2_human_mouse_long.tsv", help = "Long pathway membership CSV, TSV, or TXT; defaults to the attached OMIX MSigDB compatibility bundle"),
   make_option("--gene_column", type = "character", default = "Gene"),
   make_option("--sample_name_column", type = "character", default = "Sample"),
   make_option("--samples_to_include", type = "character", default = "", help = "Optional comma-separated sample IDs"),
