@@ -71,6 +71,14 @@ def main() -> None:
 
     panel = json.loads((ROOT / ".codeocean/app-panel.json").read_text())
     assert panel["named_parameters"] is True
+    assert "help_text" not in (ROOT / ".codeocean/app-panel.json").read_text()
+    assert panel["datasets"] == [
+        {
+            "id": "98e9ac98-74cb-4149-afe9-62eef6891e45",
+            "name": "Expression and sample metadata",
+            "description": "Provide one attached data asset containing a normalized gene-by-sample expression table and its matching sample metadata table. In workflows, replace this input with an upstream OMIX result bundle that supplies both files. OMIX Limma Analysis can supply Batch_Corrected_Expression.csv together with Sample_Metadata.csv.",
+        }
+    ]
     panel_params = {item["param_name"]: item for item in panel["parameters"]}
     assert len(panel_params) == len(panel["parameters"]), "Duplicate param_name"
 
@@ -86,7 +94,11 @@ def main() -> None:
     for name in visible_canonical:
         expected = canonical[name]
         actual = panel_params[name]
-        assert "default_value" in actual, f"Missing App Panel default for {name}"
+        # Code Ocean normalizes blank text controls by omitting their default,
+        # which is equivalent to the canonical empty-string default.
+        if "default_value" not in actual:
+            assert expected["default"] == "", f"Missing App Panel default for {name}"
+            continue
         left = normalized(actual["default_value"])
         right = normalized(expected["default"])
         if isinstance(left, float) or isinstance(right, float):

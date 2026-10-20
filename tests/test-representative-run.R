@@ -54,6 +54,7 @@ status <- system2(
   file.path(R.home("bin"), "Rscript"),
   c(
     "--vanilla", shQuote(main_file),
+    "--pathways_database", shQuote(file.path(data_root, "catalog", "pathways.tsv")),
     "--minimum_geneset_size", "5",
     "--maximum_geneset_size", "100",
     "--update_genes", "false"
@@ -86,6 +87,7 @@ alternative_status <- system2(
   file.path(R.home("bin"), "Rscript"),
   c(
     "--vanilla", shQuote(main_file),
+    "--pathways_database", shQuote(file.path(data_root, "catalog", "pathways.tsv")),
     "--method", "ssgsea",
     "--minimum_geneset_size", "5",
     "--maximum_geneset_size", "100",

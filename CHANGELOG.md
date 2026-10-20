@@ -5,6 +5,16 @@ Canonical scientific changes belong in the
 
 ## Unreleased
 
+### Changed
+
+- Documents and regression-tests the workflow handoff from OMIX Limma
+  Analysis using `Batch_Corrected_Expression.csv` and
+  `Sample_Metadata.csv`. This is adapter input translation only; GSVA
+  scientific behavior, defaults, and managed source are unchanged.
+- Keeps the MSigDB compatibility bundle attached internally as the default
+  pathway database and updates the replaceable workflow-input description to
+  use the standard `description` field.
+
 ## 0.1.0 - 2026-10-04
 
 ### Added

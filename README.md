@@ -21,8 +21,8 @@ repository owns only the Code Ocean App Panel, mounted-input discovery,
 
 - Named App Panel controls for every user-settable canonical parameter.
 - Recursive, content-based discovery of exactly one normalized-expression
-  table, one sample-metadata table, and one pathway-membership table under
-  `/data` when uploads are left blank.
+  table and one sample-metadata table under `/data` when selectors are left
+  blank; the default MSigDB compatibility database is attached internally.
 - Stable Code Ocean results under `/results`.
 - Selection of the imported **OMIX Pathways v2** starter environment.
 
@@ -62,12 +62,16 @@ and lists the candidate paths. It never chooses among ambiguous files.
 
 ## Run the analysis
 
-1. Attach or upload normalized expression, matching sample metadata, and an
-   approved pathway database.
+1. Attach one bundle containing normalized expression and matching sample
+   metadata. In a workflow, replace the **Expression and sample metadata**
+   input with an upstream result bundle. OMIX Limma Analysis may supply
+   `Batch_Corrected_Expression.csv` and `Sample_Metadata.csv` for this role.
 2. Confirm the gene and sample ID column names.
-3. Select one or more exact pathway collection names.
-4. Choose the GSVA method. The canonical default is `gsva`.
-5. Run the capsule.
+3. Use the attached MSigDB compatibility database, or explicitly select a
+   different approved pathway database.
+4. Select one or more exact pathway collection names.
+5. Choose the GSVA method. The canonical default is `gsva`.
+6. Run the capsule.
 
 The App Panel defaults preserve the canonical module: Hallmark pathways,
 Human expression/database species, minimum set size 15, maximum set size 1200,

@@ -93,6 +93,11 @@ allowed.
 - The three canonical input paths are optional file selectors in the App
   Panel. A blank selector triggers content-based discovery under `/data` and
   must resolve to exactly one candidate.
+- The replaceable workflow input contains expression and matching metadata.
+  It accepts the OMIX Limma Analysis downstream pair
+  `Batch_Corrected_Expression.csv` and `Sample_Metadata.csv`; the default
+  MSigDB bundle remains internally attached rather than becoming a second
+  workflow node.
 - Delimiters are detected independently for each input unless the user supplies
   a shared or input-specific override. A displayed `\\t` value is translated
   to the canonical tab character.
