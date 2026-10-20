@@ -5,6 +5,14 @@
 		"title": "OMIX GSVA",
 		"instructions": "Calculate sample-level pathway enrichment scores from normalized continuous expression. Provide three inputs: normalized expression, matching sample metadata, and an approved long-format pathway database. Leave a file selector blank only when the attached assets contain exactly one unambiguous candidate for that role. Raw counts are not supported."
 	},
+	"datasets": [
+		{
+			"id": "98e9ac98-74cb-4149-afe9-62eef6891e45",
+			"name": "Expression and sample metadata",
+			"description": "Normalized expression and matching sample metadata; replace with an equivalent two-file analysis bundle.",
+			"help_text": "Provide one attached data asset containing a normalized gene-by-sample expression table and its matching sample metadata table. In workflows, replace this input with an upstream OMIX result bundle that supplies both files."
+		}
+	],
 	"categories": [
 		{
 			"id": "inputs",
@@ -82,8 +90,7 @@
 			"param_name": "samples_to_include",
 			"description": "Optional comma-separated sample IDs. Leave blank to use matching metadata samples in metadata order.",
 			"type": "text",
-			"value_type": "string",
-			"default_value": ""
+			"value_type": "string"
 		},
 		{
 			"id": "species",
@@ -249,8 +256,7 @@
 			"param_name": "normalized_data_delim",
 			"description": "Optional delimiter for normalized expression. Leave blank for auto detection.",
 			"type": "text",
-			"value_type": "string",
-			"default_value": ""
+			"value_type": "string"
 		},
 		{
 			"id": "sample_metadata_delim",
@@ -259,8 +265,7 @@
 			"param_name": "sample_metadata_delim",
 			"description": "Optional delimiter for sample metadata. Leave blank for auto detection.",
 			"type": "text",
-			"value_type": "string",
-			"default_value": ""
+			"value_type": "string"
 		},
 		{
 			"id": "pathways_database_delim",
@@ -269,8 +274,7 @@
 			"param_name": "pathways_database_delim",
 			"description": "Optional delimiter for the pathway database. Leave blank for auto detection.",
 			"type": "text",
-			"value_type": "string",
-			"default_value": ""
+			"value_type": "string"
 		},
 		{
 			"id": "image_width",
