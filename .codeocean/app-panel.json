@@ -3,14 +3,13 @@
 	"named_parameters": true,
 	"general": {
 		"title": "OMIX GSVA",
-		"instructions": "Calculate sample-level pathway enrichment scores from normalized continuous expression. Provide three inputs: normalized expression, matching sample metadata, and an approved long-format pathway database. Leave a file selector blank only when the attached assets contain exactly one unambiguous candidate for that role. Raw counts are not supported."
+		"instructions": "Calculate sample-level pathway enrichment scores from normalized continuous expression. Provide one upstream bundle containing the expression matrix and matching sample metadata. The default MSigDB compatibility database is attached internally; select a different Pathway Database File only when intentionally using another approved long-format membership table. Raw counts are not supported."
 	},
 	"datasets": [
 		{
 			"id": "98e9ac98-74cb-4149-afe9-62eef6891e45",
 			"name": "Expression and sample metadata",
-			"description": "Normalized expression and matching sample metadata; replace with an equivalent two-file analysis bundle.",
-			"help_text": "Provide one attached data asset containing a normalized gene-by-sample expression table and its matching sample metadata table. In workflows, replace this input with an upstream OMIX result bundle that supplies both files."
+			"description": "Provide one attached data asset containing a normalized gene-by-sample expression table and its matching sample metadata table. In workflows, replace this input with an upstream OMIX result bundle that supplies both files. OMIX Limma Analysis can supply Batch_Corrected_Expression.csv together with Sample_Metadata.csv."
 		}
 	],
 	"categories": [
